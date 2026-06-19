@@ -1,0 +1,229 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #050505;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: white;
+  overflow: hidden;
+}
+
+.app-container {
+  position: relative;
+  width: 95vw;
+  height: 90vh;
+  max-width: 1300px;
+  background-color: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  transition: all 0.5s ease-in-out;
+}
+
+.spotlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    400px circle at var(--x, 50%) var(--y, 50%),
+    rgba(255, 255, 255, 0.1),
+    transparent 80%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.robot-box {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+spline-viewer {
+  width: 100%;
+  height: 100%;
+  transform: scale(0.85);
+  transition: all 0.5s ease;
+}
+
+/* اسپلائن واٹرمارک بلاکر */
+spline-viewer::part(logo), spline-viewer::part(watermark) {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.interaction-box {
+  width: 0%;
+  opacity: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  z-index: 3;
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  overflow: hidden;
+  background: rgba(5, 5, 5, 0.6);
+}
+
+.chat-header {
+  padding: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+.status-indicator {
+  color: #4cd137;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #4cd137;
+  border-radius: 50%;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message-bubble {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #222 0%, #111 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 14px 20px;
+  border-radius: 16px 16px 4px 16px;
+  max-width: 80%;
+  font-size: 15px;
+  line-height: 1.5;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.chat-footer {
+  padding: 20px 24px 100px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.copy-alert {
+  font-size: 13px;
+  color: #4cd137;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-align: center;
+}
+
+.notebook-redirect-btn {
+  background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+  color: black;
+  border: none;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 20px rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+}
+
+.notebook-redirect-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(255,255,255,0.2);
+}
+
+/* اینیمیشن بریک پوائنٹس */
+.app-container.active .robot-box {
+  flex: 0.45; 
+}
+
+.app-container.active .interaction-box {
+  width: 55%; 
+  opacity: 1;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-container.active spline-viewer {
+  transform: scale(0.75); 
+}
+
+.input-bar {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 550px;
+  max-width: 90%;
+  display: flex;
+  background: rgba(15, 15, 15, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 30px;
+  padding: 6px 14px;
+  backdrop-filter: blur(12px);
+  z-index: 10;
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.app-container.active .input-bar {
+  left: 22.5%;
+  width: 420px;
+}
+
+.input-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.input-bar button {
+  background: transparent;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
